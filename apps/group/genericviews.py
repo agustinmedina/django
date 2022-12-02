@@ -8,22 +8,21 @@ from drf_yasg import openapi
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+
 class GroupsViewset(ModelViewSet):
     serializer_class = GroupsSerializer
     queryset = BikeGroupsModel.objects.all().order_by("-id")
-        
-    #permission_classes=[IsAuthenticatedOrReadOnly] - 
-    
-    #@swagger_auto_schema(operation_summary="List Groups")
-    
+
+    # permission_classes=[IsAuthenticatedOrReadOnly] -
+
+    # @swagger_auto_schema(operation_summary="List Groups")
+
     #
-    #def get(self, request):
+    # def get(self, request):
     #    # Note the use of `get_queryset()` instead of `self.queryset`
     #    queryset = self.get_queryset()
     #    serializer = GroupsSerializer(queryset, many=True)
     #    return Response(serializer.data)
-
-    
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -37,11 +36,12 @@ class GroupsViewset(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-    
-    
-    #def list(self, request, *args, **kwargs):
+
+    # create,destroy,dispath,get_object,list,update,permission_denied
+
+    # def list(self, request, *args, **kwargs):
     #    queryset =self.get_queryset()
-    #    
+    #
     #    serializer = self.get_serializer(queryset, many=True)
-    #   
+    #
     #    return Response(serializer)

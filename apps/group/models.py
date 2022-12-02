@@ -6,7 +6,8 @@ from apps.accounts.models import User
 class EventModel(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='event/', default='event.png', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='event/', default='event.png', blank=True, null=True)
     start_route = models.CharField(max_length=255)
     end_route = models.CharField(max_length=255, blank=True, null=True)
     start_date = models.DateField()
@@ -24,10 +25,13 @@ class EventModel(models.Model):
 class BikeGroupsModel(models.Model):
     user_id = models.ManyToManyField(User)
     name = models.CharField(max_length=255, unique=True)
+    members = models.ManyToManyField(User, related_name="members")
     description = models.TextField()
-    image = models.ImageField(upload_to='group/', default='group.png', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='group/', default='group.png', blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
-    event = models.ForeignKey(EventModel, on_delete=models.CASCADE, blank=True, null=True)
+    event = models.ForeignKey(
+        EventModel, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"user {self.name}"
@@ -45,7 +49,8 @@ class RolesModel(models.Model):
         ('User', 'User'),
     )
 
-    rol = models.CharField(max_length=5, choices=ROL_CHOICES, default=ROL_CHOICES[1][0])
+    rol = models.CharField(
+        max_length=5, choices=ROL_CHOICES, default=ROL_CHOICES[1][0])
 
     def __str__(self) -> str:
         return self.rol
